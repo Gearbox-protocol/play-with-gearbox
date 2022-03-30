@@ -35,14 +35,19 @@ const config: HardhatUserConfig = {
     hardhat: {
       chainId: LOCAL_NETWORK,
       initialBaseFeePerGas: 0,
+      gas: 2100000,
+      gasPrice: 8000000000
     },
     localhost: {
-
+      gas: 2e9,
+      gasPrice: 2e9
     },
     mainnet: {
       url: process.env.ETH_MAINNET_PROVIDER,
       accounts: [KOVAN_PRIVATE_KEY],
       chainId: MAINNET_NETWORK,
+      gas: 2100000,
+      gasPrice: 8000000000
     },
 
     kovan: {
