@@ -1,4 +1,4 @@
-import {AccountFactory__factory, AddressProvider__factory, ContractsRegister__factory, CreditAccount__factory, CreditFilter__factory, CreditManager__factory, DataCompressor__factory, ERC20__factory} from '@diesellabs/gearbox-sdk';
+import {AccountFactory__factory, AddressProvider__factory, ContractsRegister__factory, CreditAccount__factory, CreditFilter__factory, CreditManager__factory, DataCompressor__factory, ERC20__factory} from '@gearbox-protocol/sdk';
 import {Contract, Provider} from 'ethcall';
 import {ethers, run} from 'hardhat';
 

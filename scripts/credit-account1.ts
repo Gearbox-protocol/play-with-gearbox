@@ -5,7 +5,7 @@
 // Runtime Environment's members available in the global scope.
 import { run, ethers } from "hardhat";
 import { Contract, Provider  } from 'ethcall';
-import { AccountFactory__factory, AddressProvider__factory, ContractsRegister__factory, CreditAccount__factory } from "@diesellabs/gearbox-sdk";
+import { AccountFactory__factory, AddressProvider__factory, ContractsRegister__factory, CreditAccount__factory } from "@gearbox-protocol/sdk";
 
 
 async function main() {

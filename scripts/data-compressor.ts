@@ -1,5 +1,5 @@
 import { run, ethers } from "hardhat";
-import { AddressProvider__factory, DataCompressor__factory } from "@diesellabs/gearbox-sdk";
+import { AddressProvider__factory, DataCompressor__factory } from "@gearbox-protocol/sdk";
 
 
 async function main() {
@@ -8,7 +8,7 @@ async function main() {
   const provider = new ethers.providers.JsonRpcProvider(); 
   // The address of Account #0
   const ACCOUNT0 = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
-  const accounts = await provider.getSigner(ACCOUNT0);
+  const accounts = provider.getSigner(ACCOUNT0);
   // The address of Gearbox's AddressProvider contract
   const AddressProviderContract = "0xcF64698AFF7E5f27A11dff868AF228653ba53be0";
   const ap = AddressProvider__factory.connect(AddressProviderContract, provider);
@@ -22,7 +22,9 @@ async function main() {
   // Get DataCompressor
   const DataCompressor = await ap.getDataCompressor();
   console.log("DataCompressor is ", DataCompressor);
-  const dc = await DataCompressor__factory.connect(DataCompressor, provider);
+  const dc = DataCompressor__factory.connect(DataCompressor, provider);
+  const account = await dc.getCreditAccountData("0xC38478B0A4bAFE964C3526EEFF534d70E1E09017", '0x90f79bf6eb2c4f870365e785982e1f101e93b906');
+  console.log(account);
   const pool_data_list = await dc.getPoolsList();
   console.log(" Pools data: ", pool_data_list);
 

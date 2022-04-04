@@ -4,7 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 import { run, ethers } from "hardhat";
-import { AddressProvider__factory } from "@diesellabs/gearbox-sdk";
+import { AddressProvider__factory } from "@gearbox-protocol/sdk";
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider();
