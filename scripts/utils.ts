@@ -1,4 +1,7 @@
 
+// address provider contract address
+export const ADDRESS_PROVIDER_ADDRESS = "0xcF64698AFF7E5f27A11dff868AF228653ba53be0";
+
 // credit manager addresses
 // wbtc credit manager
 export const WBTC_CREDIT_MANAGER_ADDRESS = "0xC38478B0A4bAFE964C3526EEFF534d70E1E09017";
