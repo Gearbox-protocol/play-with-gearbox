@@ -1,9 +1,6 @@
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
-import { config as dotEnvConfig } from "dotenv";
-import { HardhatUserConfig } from "hardhat/types";
-
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-ethers";
@@ -12,7 +9,10 @@ import "hardhat-gas-reporter";
 import "hardhat-abi-exporter";
 import "hardhat-contract-sizer";
 import "solidity-coverage";
+
 import { LOCAL_NETWORK, MAINNET_NETWORK } from "@gearbox-protocol/sdk";
+import { config as dotEnvConfig } from "dotenv";
+import { HardhatUserConfig } from "hardhat/types";
 
 // gets data from .env file
 dotEnvConfig();
@@ -24,7 +24,6 @@ const KOVAN_PRIVATE_KEY =
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 // const LOCAL_NETWORK: number = Number(process.env.LOCAL_NETWORK);
-
 
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
@@ -86,4 +85,3 @@ const config: HardhatUserConfig = {
 };
 
 export default config;
-
