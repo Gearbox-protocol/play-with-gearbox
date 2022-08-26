@@ -1,15 +1,20 @@
-import { ethers } from 'hardhat';
-import { AddressProvider__factory, 
-         DataCompressor__factory } from '@gearbox-protocol/sdk';
-import { ADDRESS_PROVIDER_ADDRESS } from './utils';
+import {
+  IAddressProvider__factory,
+  IDataCompressor__factory,
+} from "@gearbox-protocol/sdk";
+import { ethers } from "hardhat";
 
+import { ADDRESS_PROVIDER_ADDRESS } from "./utils";
 
 async function main() {
-  // If you don't specify a //url//, Ethers connects to the default 
+  // If you don't specify a //url//, Ethers connects to the default
   // (i.e. ``http:/\/localhost:8545``)
-  const provider = new ethers.providers.JsonRpcProvider(); 
+  const provider = new ethers.providers.JsonRpcProvider();
   // The address of Gearbox's AddressProvider contract
-  const addressProvider = AddressProvider__factory.connect(ADDRESS_PROVIDER_ADDRESS, provider);
+  const addressProvider = IAddressProvider__factory.connect(
+    ADDRESS_PROVIDER_ADDRESS,
+    provider,
+  );
 
   // Start to query AddressProvider
   //
@@ -20,7 +25,10 @@ async function main() {
   // Get DataCompressor
   const dataCompressorAddress = await addressProvider.getDataCompressor();
   console.log("DataCompressor is ", dataCompressorAddress);
-  const dataCompressor = DataCompressor__factory.connect(dataCompressorAddress, provider);
+  const dataCompressor = IDataCompressor__factory.connect(
+    dataCompressorAddress,
+    provider,
+  );
   const poolDataList = await dataCompressor.getPoolsList();
   console.log(" Pools data: ", poolDataList);
 }
@@ -29,7 +37,7 @@ async function main() {
 // and properly handle errors.
 main()
   .then(() => process.exit(0))
-  .catch((error) => {
+  .catch(error => {
     console.error(error);
     process.exit(1);
-  });  
+  });

@@ -3,14 +3,18 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
+import { IAddressProvider__factory } from "@gearbox-protocol/sdk";
 import { ethers } from "hardhat";
-import { AddressProvider__factory } from "@gearbox-protocol/sdk";
-import { ADDRESS_PROVIDER_ADDRESS } from './utils';
+
+import { ADDRESS_PROVIDER_ADDRESS } from "./utils";
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider();
 
-  const addressProvider = AddressProvider__factory.connect(ADDRESS_PROVIDER_ADDRESS, provider);
+  const addressProvider = IAddressProvider__factory.connect(
+    ADDRESS_PROVIDER_ADDRESS,
+    provider,
+  );
   const version = await addressProvider.version();
   console.log(version);
 }
@@ -19,7 +23,7 @@ async function main() {
 // and properly handle errors.
 main()
   .then(() => process.exit(0))
-  .catch((error) => {
+  .catch(error => {
     console.error(error);
     process.exit(1);
-  });  
+  });

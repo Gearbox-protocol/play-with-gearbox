@@ -3,19 +3,24 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
+import {
+  IAccountFactory__factory,
+  IAddressProvider__factory,
+  IContractsRegister__factory,
+} from "@gearbox-protocol/sdk";
 import { ethers } from "hardhat";
-import { AccountFactory__factory, 
-         AddressProvider__factory, 
-         ContractsRegister__factory } from "@gearbox-protocol/sdk";
-import { ADDRESS_PROVIDER_ADDRESS } from './utils';
 
+import { ADDRESS_PROVIDER_ADDRESS } from "./utils";
 
 async function main() {
-  // If you don't specify a //url//, Ethers connects to the default 
+  // If you don't specify a //url//, Ethers connects to the default
   // (i.e. ``http:/\/localhost:8545``)
-  const provider = new ethers.providers.JsonRpcProvider(); 
+  const provider = new ethers.providers.JsonRpcProvider();
   // The address of Gearbox's AddressProvider contract
-  const addressProvider = AddressProvider__factory.connect(ADDRESS_PROVIDER_ADDRESS, provider);
+  const addressProvider = IAddressProvider__factory.connect(
+    ADDRESS_PROVIDER_ADDRESS,
+    provider,
+  );
 
   // Start to query AddressProvider
   //
@@ -26,13 +31,16 @@ async function main() {
   // Get ContractsRegister
   const contractsRegisterAddress = await addressProvider.getContractsRegister();
   console.log("ContractsRegisterAddress is ", contractsRegisterAddress);
-  //******************** ContractsRegister ********************
-  const contractsRegister = ContractsRegister__factory.connect(contractsRegisterAddress, provider);
+  //* ******************* ContractsRegister ********************
+  const contractsRegister = IContractsRegister__factory.connect(
+    contractsRegisterAddress,
+    provider,
+  );
   const poolList = await contractsRegister.getPools();
   console.log("Pool List: ", poolList);
   const creditManagerList = await contractsRegister.getCreditManagers();
   console.log("Credit Manager List: ", creditManagerList);
-  //******************** ContractsRegister ********************
+  //* ******************* ContractsRegister ********************
 
   // Get ACL
   const ACLAddress = await addressProvider.getACL();
@@ -45,13 +53,17 @@ async function main() {
   // Get AccountFactory
   const accountFactoryAddress = await addressProvider.getAccountFactory();
   console.log("AccountFactory is ", accountFactoryAddress);
-  //******************** AccountFactory ********************
-  const accountFactory = AccountFactory__factory.connect(accountFactoryAddress, provider);
+  //* ******************* AccountFactory ********************
+  const accountFactory = IAccountFactory__factory.connect(
+    accountFactoryAddress,
+    provider,
+  );
   const countCreditAccount = await accountFactory.countCreditAccounts();
   console.log("Count of Credit Accounts: ", countCreditAccount);
-  const countCreditAccountInStock = await accountFactory.countCreditAccountsInStock();
+  const countCreditAccountInStock =
+    await accountFactory.countCreditAccountsInStock();
   console.log("Count of Credit Accounts InStock: ", countCreditAccountInStock);
-  //******************** AccountFactory ********************
+  //* ******************* AccountFactory ********************
 
   // Get DataCompressor
   const dataCompressorAddress = await addressProvider.getDataCompressor();
@@ -66,7 +78,7 @@ async function main() {
 // and properly handle errors.
 main()
   .then(() => process.exit(0))
-  .catch((error) => {
+  .catch(error => {
     console.error(error);
     process.exit(1);
-  });  
+  });
